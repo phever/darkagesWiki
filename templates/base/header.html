@@ -13,12 +13,9 @@
 			<!-- Nav -->
 			<nav id="nav">
 				<ul>
-					<li><a href="#" id="top-link"><span class="icon solid fa-home">Intro</span></a></li>
-					<li><a href="#" id="portfolio-link"><span class="icon solid fa-th">Portfolio</span></a>
-					</li>
-					<li><a href="#" id="about-link"><span class="icon solid fa-user">About Me</span></a></li>
-					<li><a href="#" id="contact-link"><span class="icon solid fa-envelope">Contact</span></a>
-					</li>
+					{% for link in nav_links %}
+						<li><a href="{{ link.url }}"{% if link.url in request.path %}class="active"{% endif %}><span class="icon solid {{ link.icon }}">{{ link.text }}</span></a></li>
+					{% endfor %}
 				</ul>
 			</nav>
 		</div>

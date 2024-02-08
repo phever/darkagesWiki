@@ -13,39 +13,63 @@ ELEMENTAL_CHOICES = {
     'N': 'Nature'
 }
 
+EQUIPMENT_CATEGORY_CHOICES = {
+    'AC': 'Accessory',
+    'BE': 'Belt',
+    'BO': 'Boots',
+    'EA': 'Earrings',
+    'GA': 'Gauntlet',
+    'GR': 'Greaves',
+    'HA': 'Hat',
+    'HE': 'Helmet',
+    'NE': 'Necklace',
+    'RI': 'Ring',
+    'SH': 'Shield',
+    'WE': 'Weapon',
+    'OV': 'Overcoat',
+}
+
+ITEM_CATEGORY_CHOICES = {
+    'TR': 'Trinket',
+    'MD': 'Monster Drop',
+    'FO': 'Food',
+    'FL': 'Flower',
+    'HE': 'Herbalism',
+    'PO': 'Potion',
+    'LO': 'Loot Box',
+}
+
+
+class Item(models.Model):
+    name = models.CharField(max_length=MAX_NAME_LENGTH)
+    image = models.ImageField(upload_to='static/images/item')
+    category = models.CharField(max_length=2, choices=ITEM_CATEGORY_CHOICES)
+    is_stackable = models.BooleanField(default=False)
+    stack_size = models.PositiveIntegerField(default=None, null=True, blank=True)
+    effect = models.TextField(default=None, null=True, blank=True)
+
 
 class Equipment(models.Model):
     name = models.CharField(max_length=MAX_NAME_LENGTH)
-    image = models.ImageField(upload_to='images/equipment')
-    category = models.ForeignKey('ItemCategory', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='static/images/equipment')
+    category = models.CharField(choices=EQUIPMENT_CATEGORY_CHOICES, max_length=2)
     minimum_level = models.PositiveSmallIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(199)])
     gold_value = models.PositiveIntegerField(default=0)
     durability = models.PositiveIntegerField(default=0)
     weight = models.PositiveSmallIntegerField(default=1)
-    enchantable = models.BooleanField(default=False)
-    location = models.ForeignKey('Location', on_delete=models.SET_NULL, null=True)
-    stats = models.ForeignKey('Stats', on_delete=models.SET_NULL, null=True)
+    armor_class = models.PositiveSmallIntegerField(default=0)
+    is_enchantable = models.BooleanField(default=False)
+    is_skin = models.BooleanField(default=False)
+    location = models.ManyToManyField('Map', blank=True, default=None, null=True)
+    stats = models.ForeignKey('Stats', on_delete=models.SET_NULL, null=True, blank=True, default=None)
     notes = models.TextField(default=None, null=True, blank=True)
 
-
-class ItemCategory(models.Model):
-    ITEM_CATEGORIES = {
-        'AC': 'Accessory',
-        'BE': 'Belt',
-        'BO': 'Boots',
-        'EA': 'Earrings',
-        'GA': 'Gauntlet',
-        'GR': 'Greaves',
-        'HE': 'Helmet',
-        'NE': 'Necklace',
-        'RI': 'Ring',
-        'SH': 'Shield'
-    }
-    category_name = models.CharField(max_length=2, choices=ITEM_CATEGORIES)
+    def __str__(self):
+        return self.name
 
 
 class Weapon(Equipment):
-    two_handed = models.BooleanField(default=False)
+    is_two_handed = models.BooleanField(default=False)
     damage_small_minimum = models.PositiveSmallIntegerField(default=1)
     damage_small_maximum = models.PositiveSmallIntegerField(default=1)
     damage_large_minimum = models.PositiveSmallIntegerField(default=1)
@@ -53,24 +77,32 @@ class Weapon(Equipment):
 
 
 class Armor(Equipment):
-    tailorable = models.BooleanField(default=False)
-    dyeable = models.BooleanField(default=False)
+    is_tailorable = models.BooleanField(default=False)
+    is_dyeable = models.BooleanField(default=False)
 
 
 class Skill(models.Model):
     name = models.CharField(max_length=MAX_NAME_LENGTH)
+    image = models.ImageField(upload_to='static/images/skill')
 
 
 class Spell(models.Model):
     name = models.CharField(max_length=MAX_NAME_LENGTH)
-
-
-class Trinket(models.Model):
-    name = models.CharField(max_length=MAX_NAME_LENGTH)
+    image = models.ImageField(upload_to='static/images/spell')
 
 
 class Location(models.Model):
     name = models.CharField(max_length=MAX_NAME_LENGTH)
+
+
+class Map(models.Model):
+    name = models.CharField(max_length=MAX_NAME_LENGTH)
+    floor_a = models.PositiveSmallIntegerField(default=1)
+    floor_b = models.PositiveSmallIntegerField(default=1)
+    area = models.ForeignKey('Location', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.name} {self.floor_a}-{self.floor_b}'
 
 
 class Stats(models.Model):
