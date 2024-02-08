@@ -49,6 +49,12 @@ ul.icons {
   }
 
   a {
+    color: bootstrap.tint-color(bootstrap.$dark, 20);
+
+    &:hover {
+      transition-duration: 1s;
+      color: bootstrap.shade-color(bootstrap.$light, 20);
+    }
     display: inline-block;
     width: 2em;
     height: 2em;
@@ -183,7 +189,11 @@ ul.icons {
         text-decoration: none;
         outline: 0;
         border: 0;
-        transition: none;
+        transition: 250ms;
+
+        &:hover {
+          color: bootstrap.shade-color(bootstrap.$light, 40);
+        }
 
         span {
           position: relative;
@@ -202,10 +212,6 @@ ul.icons {
         &.active {
           background: rgba(0, 0, 0, 0.15);
           box-shadow: inset 0 0 0.25em 0 rgba(0, 0, 0, 0.125);
-        }
-
-        &:hover {
-          color: bootstrap.shade-color(bootstrap.$light, 30);
         }
       }
     }
