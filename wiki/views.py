@@ -8,3 +8,15 @@ def index(request):
         'title': f'Welcome to the {settings.SITE_NAME}'
     }
     return render(request, 'index.html', base_context(context))
+
+
+def weapons(request):
+    pass
+
+
+def armors(request):
+    pass
+
+
+def equipment(request):
+    pass

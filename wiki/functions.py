@@ -15,17 +15,17 @@ def base_context(context):
         {
             'text': 'Weapons',
             'icon': 'fa-wand-sparkles',
-            'url': reverse('index')
+            'url': reverse('weapons')
         },
         {
             'text': 'Armors',
             'icon': 'fa-vest',
-            'url': reverse('index')
+            'url': reverse('armors')
         },
         {
             'text': 'Equipment',
             'icon': 'fa-shield',
-            'url': reverse('index')
+            'url': reverse('equipment')
         },
     ]
     if context_check('current_year'):
