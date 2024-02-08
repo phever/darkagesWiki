@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>{{ title }}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="{% static 'favicon.png' %}"/>
+	<script src="{% static 'fontawesome/js/all.min.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'css/default.css' %}" crossorigin="use-credentials"/>
+	{% block additional_stylesheets %}{% endblock %}
+	{% block additional_head %}{% endblock %}
+</head>
+<body data-bs-theme="dark">
+<div id="content-main">
+	{% block header %}{% endblock %}
+	{% block content %}{% endblock %}
+	{% block footer %}{% endblock %}
+</div>
+{% block javascript %}{% endblock %}
+{% block additional_javascript %}{% endblock %}
+</body>
+</html>
