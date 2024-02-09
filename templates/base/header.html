@@ -14,7 +14,36 @@
 			<nav id="nav">
 				<ul>
 					{% for link in nav_links %}
-						<li><a href="{{ link.url }}"{% if link.url in request.path %}class="active"{% endif %}><span class="icon solid {{ link.icon }}">{{ link.text }}</span></a></li>
+						{% if link.collapse %}
+							<li>
+								<a href="#{{ link.header }}"
+								   data-bs-toggle="collapse"
+								   role="button"
+								   aria-expanded="false"
+								   aria-controls="{{ link.header }}">
+									<span class="icon solid {{ link.icon }}">
+										{{ link.header }}
+									</span>
+								</a>
+							</li>
+							<div class="collapse" id="{{ link.header }}">
+								{% for child_link in link.children %}
+									<li>
+										<a href="{{ child_link.url }}"
+										   {% if child_link.url in request.path %}class="active"{% endif %}>
+											<span class="icon solid {{ child_link.icon }}">{{ child_link.text }}</span>
+										</a>
+									</li>
+								{% endfor %}
+							</div>
+						{% else %}
+							<li>
+								<a href="{{ link.url }}"
+								   {% if link.url in request.path %}class="active"{% endif %}>
+									<span class="icon solid {{ link.icon }}">{{ link.text }}</span>
+								</a>
+							</li>
+						{% endif %}
 					{% endfor %}
 				</ul>
 			</nav>

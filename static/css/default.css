@@ -22454,7 +22454,7 @@ body {
 }
 @media (max-width: 767.98px) {
   #main {
-    margin-left: 125px;
+    margin-left: 150px;
   }
 }
 @media (max-width: 575.98px) {
@@ -22541,7 +22541,7 @@ ul.icons a:hover {
 }
 @media (max-width: 767.98px) {
   #header {
-    width: 125px;
+    width: 150px;
     font-size: 12pt;
   }
 }
@@ -22650,7 +22650,7 @@ ul.icons a:hover {
 }
 @media (max-width: 767.98px) {
   #footer {
-    margin-left: 125px;
+    margin-left: 150px;
   }
 }
 @media (max-width: 575.98px) {

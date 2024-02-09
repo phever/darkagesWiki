@@ -17,7 +17,9 @@
 	{% block content %}{% endblock %}
 	{% block footer %}{% include 'base/footer.html' %}{% endblock %}
 </div>
-{% block javascript %}{% endblock %}
+{% block javascript %}
+	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+{% endblock %}
 {% block additional_javascript %}{% endblock %}
 </body>
 </html>

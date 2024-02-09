@@ -81,14 +81,35 @@ class Armor(Equipment):
     is_dyeable = models.BooleanField(default=False)
 
 
-class Skill(models.Model):
+class SkillSpell(models.Model):
+    SPELL_SKILL_TYPES = {
+        'TS': 'Temuair Skill [s]',
+        'MS': 'Medenia Skill [S]',
+        'TD': 'Temuair Spell [d]',
+        'MD': 'Medenia Spell [D]',
+        'GS': 'Extra Skill [g]',
+        'GD': 'Extra Spell [g]'
+    }
     name = models.CharField(max_length=MAX_NAME_LENGTH)
-    image = models.ImageField(upload_to='static/images/skill')
+    spell_type = models.CharField(max_length=2, choices=SPELL_SKILL_TYPES)
+    image = models.ImageField(upload_to='static/images/skills_and_spells')
+    minimum_level = models.PositiveSmallIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(199)])
+    required_strength = models.SmallIntegerField(default=0)
+    required_constitution = models.SmallIntegerField(default=0)
+    required_wisdom = models.SmallIntegerField(default=0)
+    required_intelligence = models.SmallIntegerField(default=0)
+    required_dexterity = models.SmallIntegerField(default=0)
+    description = models.TextField()
 
 
-class Spell(models.Model):
-    name = models.CharField(max_length=MAX_NAME_LENGTH)
-    image = models.ImageField(upload_to='static/images/spell')
+class SkillSpellRequirements(models.Model):
+    linked_ability = models.ForeignKey('SkillSpell', on_delete=models.CASCADE)
+    required_level = models.PositiveSmallIntegerField(default=0)
+
+
+class ItemRequirements(models.Model):
+    linked_ability = models.ForeignKey('SkillSpell', on_delete=models.CASCADE)
+    linked_item = models.ForeignKey('Item', on_delete=models.CASCADE)
 
 
 class Location(models.Model):
