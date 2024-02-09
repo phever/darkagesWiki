@@ -2,7 +2,16 @@ from django.urls import reverse
 from django.utils import timezone
 
 
-def default_links():
+def default_links() -> list[dict]:
+    """
+    the default nav links, html will be rendered
+
+    nav = { 'text': 'Home', 'icon': 'fa-home', 'url': reverse('index') }
+
+    parent_nav = { 'text': 'Home', 'icon': 'fa-home', 'children': list[nav] }
+
+    :return: list of dicts containing 'nav' and 'parent_nav' dictionaries
+    """
     return [
         {
             'text': 'Home',
@@ -11,7 +20,7 @@ def default_links():
         },
         {
             'text': 'Weapons',
-            'icon': 'fa-gavel',
+            'icon': 'fa-baseball-bat-ball',
             'url': reverse('weapons')
         },
         {
@@ -36,7 +45,7 @@ def default_links():
         },
         {
             'header': 'Classes',
-            'icon': 'fa-user',
+            'icon': '',
             'collapse': True,
             'children': [
                 {
@@ -89,15 +98,27 @@ def default_links():
     ]
 
 
-def base_context(context):
-    def context_check(key):
+def base_context(context: dict) -> dict:
+    """
+    adds context variables needed for every (base) template
+    :param context:
+    :return: context
+    """
+    def context_check(key) -> bool:
+        """
+        returns true if the context[key] is empty
+        :param key:
+        :return: bool
+        """
         return key not in context
 
+    # add sidebar/header/nav
     if context_check('nav_links'):
         context['nav_links'] = default_links()
     else:
         context['nav_links'] = default_links() + context['nav_links']
 
+    # add current year for footer
     if context_check('current_year'):
         context['current_year'] = timezone.now().year
 
