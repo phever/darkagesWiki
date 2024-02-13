@@ -10,7 +10,7 @@ same_commit(){
 # get the changes if any, but don't merge them yet
 git fetch origin
 # See if there are any changes
-if same_commit mainline origin/mainline
+if same_commit refs/heads/master refs/remotes/origin/master
 then
    echo "Everything up to date"
    exit 0
