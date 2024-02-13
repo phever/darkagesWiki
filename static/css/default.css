@@ -22591,12 +22591,12 @@ ul.icons a:hover {
   left: 0;
   top: 0;
 }
-#logo img {
-  width: 30px;
+#logo span > img {
+  width: 2rem;
   object-fit: fill;
 }
 @media (max-width: 767.98px) {
-  #logo img {
+  #logo span > img {
     display: none;
   }
 }

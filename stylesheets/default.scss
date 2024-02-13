@@ -163,8 +163,8 @@ ul.icons {
     top: 0;
   }
 
-  img {
-    width: 30px;
+  span > img {
+    width: 2rem;
     object-fit: fill;
 
     @include bootstrap.media-breakpoint-down(md) {
