@@ -22586,12 +22586,10 @@ ul.icons a:hover {
   line-height: 1.25em;
   margin: 0.5em 0 0 0;
 }
-#logo .image {
+#logo img {
   position: absolute;
   left: 0;
   top: 0;
-}
-#logo img {
   width: 2rem;
   object-fit: fill;
 }
