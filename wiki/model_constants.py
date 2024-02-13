@@ -58,3 +58,12 @@ SUB_CLASS_CHOICES = {
     'PR': 'Priest',
     'MO': 'Monk',
 }
+
+SPELL_SKILL_TYPES = {
+    'TS': 'Temuair Skill [s]',
+    'MS': 'Medenia Skill [S]',
+    'TD': 'Temuair Spell [d]',
+    'MD': 'Medenia Spell [D]',
+    'GS': 'Extra Skill [g]',
+    'GD': 'Extra Spell [g]'
+}

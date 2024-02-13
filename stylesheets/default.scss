@@ -151,7 +151,7 @@ ul.icons {
   p {
     position: relative;
     display: block;
-    font-size: 0.6em;
+    font-size: 0.55em;
     color: rgba(255, 255, 255, 0.5);
     line-height: 1.25em;
     margin: 0.5em 0 0 0;
@@ -161,6 +161,15 @@ ul.icons {
     position: absolute;
     left: 0;
     top: 0;
+  }
+
+  img {
+    width: 30px;
+    object-fit: fill;
+
+    @include bootstrap.media-breakpoint-down(md) {
+      display: none;
+    }
   }
 
   #title > a {

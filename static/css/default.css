@@ -22581,7 +22581,7 @@ ul.icons a:hover {
 #logo p {
   position: relative;
   display: block;
-  font-size: 0.6em;
+  font-size: 0.55em;
   color: rgba(255, 255, 255, 0.5);
   line-height: 1.25em;
   margin: 0.5em 0 0 0;
@@ -22590,6 +22590,15 @@ ul.icons a:hover {
   position: absolute;
   left: 0;
   top: 0;
+}
+#logo img {
+  width: 30px;
+  object-fit: fill;
+}
+@media (max-width: 767.98px) {
+  #logo img {
+    display: none;
+  }
 }
 #logo #title > a {
   text-decoration: none;
