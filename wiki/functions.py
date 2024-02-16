@@ -33,16 +33,16 @@ def default_links() -> list[dict]:
             'icon': 'fa-crown',
             'url': reverse('equipment')
         },
-        {
-            'text': 'Skills',
-            'icon': 'fa-dumbbell',
-            'url': reverse('skills')
-        },
-        {
-            'text': 'Spells',
-            'icon': 'fa-wand-sparkles',
-            'url': reverse('spells')
-        },
+        # {
+        #     'text': 'Skills',
+        #     'icon': 'fa-dumbbell',
+        #     'url': reverse('skills')
+        # },
+        # {
+        #     'text': 'Spells',
+        #     'icon': 'fa-wand-sparkles',
+        #     'url': reverse('spells')
+        # },
         {
             'header': 'Classes',
             'icon': '',

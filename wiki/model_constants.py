@@ -8,7 +8,7 @@ ELEMENTAL_CHOICES = {
     'L': 'Light',
     'D': 'Dark',
     'M': 'Metal',
-    'N': 'Nature'
+    'N': 'Nature',
 }
 
 EQUIPMENT_CATEGORY_CHOICES = {
@@ -35,6 +35,7 @@ ITEM_CATEGORY_CHOICES = {
     'HE': 'Herbalism',
     'PO': 'Potion',
     'LO': 'Loot Box',
+    'EQ': 'Equipment',
 }
 
 CLASS_CHOICES = {
@@ -65,5 +66,11 @@ SPELL_SKILL_TYPES = {
     'TD': 'Temuair Spell [d]',
     'MD': 'Medenia Spell [D]',
     'GS': 'Extra Skill [g]',
-    'GD': 'Extra Spell [g]'
+    'GD': 'Extra Spell [g]',
+}
+
+GENDER_CHOICES = {
+    'M': 'Male',
+    'F': 'Female',
+    'B': 'Both',
 }
