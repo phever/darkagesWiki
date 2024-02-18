@@ -15,8 +15,8 @@ class Article(models.Model):
 
 
 class Item(Article):
-    image = models.ImageField(upload_to='static/images/item')
     category = models.CharField(max_length=2, choices=ITEM_CATEGORY_CHOICES)
+    image = models.ImageField(upload_to=f'static/images/item/{category}')
     is_stackable = models.BooleanField(default=False)
     stack_size = models.PositiveIntegerField(default=None, null=True, blank=True)
     effect = models.TextField(default=None, null=True, blank=True)
@@ -24,7 +24,6 @@ class Item(Article):
 
 
 class Equipment(Item):
-    image = models.ImageField(upload_to='static/images/item/equipment')
     slot = models.CharField(choices=EQUIPMENT_CATEGORY_CHOICES, max_length=2)
     minimum_level = models.PositiveSmallIntegerField(default=1,
                                                      validators=[MinValueValidator(1), MaxValueValidator(199)])
