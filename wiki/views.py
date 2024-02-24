@@ -1,5 +1,7 @@
 from django.conf import settings
 from django.shortcuts import render
+
+from . import forms
 from .functions import base_context
 
 
@@ -67,7 +69,11 @@ def items(request):
 
 
 def new_weapon(request):
-    return None
+    context = {
+        'title': 'Add a new Weapon',
+        'form': forms.NewWeaponForm
+    }
+    return render(request, 'editors/new_article.html', base_context(context))
 
 
 def new_armor(request):
