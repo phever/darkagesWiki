@@ -19,9 +19,9 @@ def default_links() -> list[dict]:
             'url': reverse('weapons')
         },
         {
-            'text': 'Armors',
+            'text': 'Armor',
             'icon': 'fa-shirt',
-            'url': reverse('armors')
+            'url': reverse('armor')
         },
         {
             'text': 'Equipment',

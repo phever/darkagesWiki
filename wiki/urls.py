@@ -4,7 +4,7 @@ from wiki import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('weapons/', views.weapons, name='weapons'),
-    path('armors/', views.armors, name='armors'),
+    path('armor/', views.armor, name='armor'),
     path('equipment/', views.equipment, name='equipment'),
     path('skills/', views.skills, name='skills'),
     path('spells/', views.spells, name='spells'),

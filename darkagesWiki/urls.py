@@ -21,3 +21,6 @@ urlpatterns = [
     path('', include('wiki.urls')),
     path('admin/', admin.site.urls),
 ]
+
+handler404 = 'wiki.views.handler404'
+handler500 = 'wiki.views.handler500'

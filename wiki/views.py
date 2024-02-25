@@ -3,6 +3,7 @@ from django.shortcuts import render
 
 from . import forms
 from .functions import base_context
+from .models import Weapon, Armor, Equipment
 
 
 def index(request):
@@ -12,16 +13,36 @@ def index(request):
     return render(request, 'index.html', base_context(context))
 
 
+def handler500(request, *args, **kwargs):
+    return render(request, '404.html', base_context({}), status=500)
+
+
+def handler404(request, exception, template_name='404.html'):
+    return render(request, '404.html', base_context({}), status=404)
+
+
 def weapons(request):
-    pass
+    context = {
+        'title': f'{settings.SITE_NAME} - Weapons',
+        'weapons': Weapon.objects.all()
+    }
+    return render(request, 'weapons.html', base_context(context))
 
 
-def armors(request):
-    pass
+def armor(request):
+    context = {
+        'title': f'{settings.SITE_NAME} - Armor',
+        'armors': Armor.objects.all()
+    }
+    return render(request, 'armor.html', base_context(context))
 
 
 def equipment(request):
-    pass
+    context = {
+        'title': f'{settings.SITE_NAME} - Equipment',
+        'equipments': Equipment.objects.all()
+    }
+    return render(request, 'equipment.html', base_context(context))
 
 
 def skills(request):
