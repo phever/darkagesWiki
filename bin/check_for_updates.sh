@@ -17,6 +17,7 @@ then
 fi
 # Now merge the remote changes
 git pull
+venv/bin/pip install -r requirements.txt
 venv/bin/python manage.py migrate
 systemctl restart gunicorn.service
 systemctl restart nginx.service
