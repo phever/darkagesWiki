@@ -24,12 +24,12 @@ def equipment(request):
     pass
 
 
-# def skills(request):
-#     return None
-#
-#
-# def spells(request):
-#     return None
+def skills(request):
+    return None
+
+
+def spells(request):
+    return None
 
 
 def knowledge(request):
@@ -40,28 +40,28 @@ def quests(request):
     return None
 
 
-def warrior(request):
-    return None
-
-
-def wizard(request):
-    return None
-
-
-def priest(request):
-    return None
-
-
-def rogue(request):
-    return None
-
-
-def monk(request):
-    return None
-
-
-def peasant(request):
-    return None
+# def warrior(request):
+#     return None
+#
+#
+# def wizard(request):
+#     return None
+#
+#
+# def priest(request):
+#     return None
+#
+#
+# def rogue(request):
+#     return None
+#
+#
+# def monk(request):
+#     return None
+#
+#
+# def peasant(request):
+#     return None
 
 
 def items(request):
