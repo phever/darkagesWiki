@@ -14,11 +14,6 @@ def default_links() -> list[dict]:
     """
     return [
         {
-            'text': 'Home',
-            'icon': 'fa-home',
-            'url': reverse('index')
-        },
-        {
             'text': 'Weapons',
             'icon': 'fa-baseball-bat-ball',
             'url': reverse('weapons')
