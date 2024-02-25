@@ -22551,7 +22551,7 @@ ul.icons a:hover {
   }
 }
 #header .top {
-  flex-grow: 0;
+  flex-grow: 1;
 }
 #header .bottom {
   flex-shrink: 0;
