@@ -1,22 +1,22 @@
 from django.contrib.auth.models import User
-from .model_constants import *
+from .model_constants import MAX_NAME_LENGTH, ITEM_CATEGORY_CHOICES, EQUIPMENT_CATEGORY_CHOICES, GENDER_CHOICES, CLASS_CHOICES, SPELL_SKILL_TYPES, ELEMENTAL_CHOICES
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
 class Article(models.Model):
     name = models.CharField(max_length=MAX_NAME_LENGTH)
-    author = models.ForeignKey(User, on_delete=models.PROTECT, related_name='articles')
+    author = models.ForeignKey(User, on_delete=models.PROTECT, related_name="articles")
     created = models.DateTimeField(auto_now_add=True)
     last_edited = models.DateTimeField(auto_now=True)
     published = models.BooleanField(default=False)
     approved = models.BooleanField(default=False)
-    approved_by = models.ForeignKey(User, on_delete=models.PROTECT, related_name='approved_articles')
+    approved_by = models.ForeignKey(User, on_delete=models.PROTECT, related_name="approved_articles")
 
 
 class Item(Article):
     category = models.CharField(max_length=2, choices=ITEM_CATEGORY_CHOICES)
-    image = models.ImageField(upload_to=f'static/images/item/{category}')
+    image = models.ImageField(upload_to=f"static/images/item/{category}")
     is_stackable = models.BooleanField(default=False)
     stack_size = models.PositiveIntegerField(default=None, null=True, blank=True)
     effect = models.TextField(default=None, null=True, blank=True)
@@ -25,8 +25,7 @@ class Item(Article):
 
 class Equipment(Item):
     slot = models.CharField(choices=EQUIPMENT_CATEGORY_CHOICES, max_length=2)
-    minimum_level = models.PositiveSmallIntegerField(default=1,
-                                                     validators=[MinValueValidator(1), MaxValueValidator(199)])
+    minimum_level = models.PositiveSmallIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(199)])
     wearable_by_gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     wearable_by_class = models.CharField(max_length=2, choices=CLASS_CHOICES)
     gold_value = models.PositiveIntegerField(default=0)
@@ -36,8 +35,8 @@ class Equipment(Item):
     is_enchantable = models.BooleanField(default=False)
     is_skin = models.BooleanField(default=False)
     is_perishable = models.BooleanField(default=False)
-    location = models.ManyToManyField('Map', blank=True, default=None)
-    stats = models.ForeignKey('Stats', on_delete=models.SET_NULL, null=True, blank=True, default=None)
+    location = models.ManyToManyField("Map", blank=True, default=None)
+    stats = models.ForeignKey("Stats", on_delete=models.SET_NULL, null=True, blank=True, default=None)
     notes = models.TextField(default=None, null=True, blank=True)
 
     def __str__(self):
@@ -61,9 +60,8 @@ class Armor(Equipment):
 class SkillSpell(Article):
     spell_type = models.CharField(max_length=2, choices=SPELL_SKILL_TYPES)
     learned_by = models.CharField(max_length=2, choices=CLASS_CHOICES)
-    image = models.ImageField(upload_to='static/images/skills_and_spells')
-    minimum_level = models.PositiveSmallIntegerField(default=1,
-                                                     validators=[MinValueValidator(1), MaxValueValidator(199)])
+    image = models.ImageField(upload_to="static/images/skills_and_spells")
+    minimum_level = models.PositiveSmallIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(199)])
     required_strength = models.SmallIntegerField(default=0)
     required_constitution = models.SmallIntegerField(default=0)
     required_wisdom = models.SmallIntegerField(default=0)
@@ -76,14 +74,13 @@ class SkillSpell(Article):
 
 
 class SkillSpellRequirements(models.Model):
-    linked_ability = models.ForeignKey('SkillSpell', on_delete=models.CASCADE)
-    minimum_level = models.PositiveSmallIntegerField(default=1,
-                                                     validators=[MinValueValidator(1), MaxValueValidator(199)])
+    linked_ability = models.ForeignKey("SkillSpell", on_delete=models.CASCADE)
+    minimum_level = models.PositiveSmallIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(199)])
 
 
 class ItemRequirements(models.Model):
-    linked_ability = models.ForeignKey('SkillSpell', on_delete=models.CASCADE)
-    linked_item = models.ForeignKey('Item', on_delete=models.CASCADE)
+    linked_ability = models.ForeignKey("SkillSpell", on_delete=models.CASCADE)
+    linked_item = models.ForeignKey("Item", on_delete=models.CASCADE)
 
 
 class Location(Article):
@@ -93,10 +90,10 @@ class Location(Article):
 class Map(Article):
     floor_a = models.PositiveSmallIntegerField(default=1)
     floor_b = models.PositiveSmallIntegerField(default=1)
-    area = models.ForeignKey('Location', on_delete=models.CASCADE)
+    area = models.ForeignKey("Location", on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.name} {self.floor_a}-{self.floor_b}'
+        return f"{self.name} {self.floor_a}-{self.floor_b}"
 
 
 class Stats(models.Model):
@@ -117,18 +114,16 @@ class Stats(models.Model):
 
 
 class Quest(Article):
-    minimum_level = models.PositiveSmallIntegerField(default=1,
-                                                     validators=[MinValueValidator(1), MaxValueValidator(199)])
-    maximum_level = models.PositiveSmallIntegerField(default=None, null=True, blank=True,
-                                                     validators=[MinValueValidator(1), MaxValueValidator(199)])
+    minimum_level = models.PositiveSmallIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(199)])
+    maximum_level = models.PositiveSmallIntegerField(default=None, null=True, blank=True, validators=[MinValueValidator(1), MaxValueValidator(199)])
     repeatable = models.PositiveIntegerField(default=0, help_text="Repeatable every n hours")
-    quest_start = models.ForeignKey('Location', on_delete=models.CASCADE)
-    required_items = models.ManyToManyField('Article', related_name='quest_required_items')
-    rewards = models.ManyToManyField('Article', related_name='quest_rewards')
+    quest_start = models.ForeignKey("Location", on_delete=models.CASCADE)
+    required_items = models.ManyToManyField("Article", related_name="quest_required_items")
+    rewards = models.ManyToManyField("Article", related_name="quest_rewards")
 
 
 class QuestStep(Article):
-    related_quest = models.ForeignKey('Quest', on_delete=models.CASCADE)
+    related_quest = models.ForeignKey("Quest", on_delete=models.CASCADE)
     order = models.SmallIntegerField()
     header = models.CharField(max_length=255)
     body = models.TextField()
