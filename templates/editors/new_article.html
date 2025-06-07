@@ -1,11 +1,8 @@
 {% extends 'base/base.html' %}
 {% load crispy_forms_tags %}
-
 {% block content %}
-	<!-- Main -->
-	<div id="main">
-		<div class="container">
-			{% crispy 'form' %}
-		</div>
-	</div>
+    <!-- Main -->
+    <div id="main">
+        <div class="container">{% crispy form %}</div>
+    </div>
 {% endblock %}
