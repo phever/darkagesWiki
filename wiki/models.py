@@ -1,17 +1,30 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+from django.conf import settings
 from .model_constants import MAX_NAME_LENGTH, ITEM_CATEGORY_CHOICES, EQUIPMENT_CATEGORY_CHOICES, GENDER_CHOICES, CLASS_CHOICES, SPELL_SKILL_TYPES, ELEMENTAL_CHOICES
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
+class CustomUser(AbstractUser):
+    dark_ages_username = models.CharField(max_length=255, blank=True)
+    discord_handle = models.CharField(max_length=255, blank=True)
+
+    def __str__(self) -> str:  # pragma: no cover - simple repr
+        return self.username
+
+
 class Article(models.Model):
     name = models.CharField(max_length=MAX_NAME_LENGTH)
-    author = models.ForeignKey(User, on_delete=models.PROTECT, related_name="articles")
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name="articles")
     created = models.DateTimeField(auto_now_add=True)
     last_edited = models.DateTimeField(auto_now=True)
     published = models.BooleanField(default=False)
     approved = models.BooleanField(default=False)
-    approved_by = models.ForeignKey(User, on_delete=models.PROTECT, related_name="approved_articles")
+    approved_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        related_name="approved_articles",
+    )
 
 
 class Item(Article):
