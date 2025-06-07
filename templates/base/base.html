@@ -9,6 +9,10 @@
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600"
               rel="stylesheet">
+        <link href="{% static 'fontawesomefree/css/all.min.css' %}"
+              rel="stylesheet"
+              type="text/css">
+        <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
         {% block additional_stylesheets %}{% endblock %}
         {% block additional_head %}{% endblock %}
     </head>
@@ -19,8 +23,10 @@
                     {% include 'base/header.html' %}
                 </aside>
             {% endblock %}
-            <div class="flex-1">
-                {% block content %}{% endblock %}
+            <div class="flex flex-col flex-auto">
+                <div class="basis-full">
+                    {% block content %}{% endblock %}
+                </div>
                 {% block footer %}
                     {% include 'base/footer.html' %}
                 {% endblock %}

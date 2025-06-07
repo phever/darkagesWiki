@@ -2,132 +2,120 @@
 {% block header %}
     <!-- Header -->
     <div id="header"
-         class="w-64 h-screen bg-gray-800 text-white flex flex-col justify-between shadow-inner overflow-y-auto">
-        <div class="top">
+         class="w-60 h-screen bg-gray-800 text-gray-100 flex flex-col shadow-inner overflow-y-auto">
+        <div id="top" class="flex flex-row mb-10">
             <!-- Logo -->
-            <div id="logo">
-                <span class="image">
-                    <img src="{% static 'images/96.png' %}" alt="" />
-                </span>
-                <h1 id="title">
+            <div id="logo-icon" class="basis-1/5">
+                <div class="flex items-center justify-center h-full">
+                    <img src="{% static 'images/96.png' %}" class="object-none mx-auto" alt="" />
+                </div>
+            </div>
+            <div id="logo-text" class="basis-4/5">
+                <h1 id="title" class="pt-2 text-2xl">
                     <a href="{% url 'index' %}">Dark Ages Wiki</a>
                 </h1>
-                <p>{{ title }}</p>
+                <p class="text-xs">{{ title }}</p>
             </div>
-            <!-- Nav -->
-            <nav id="nav">
-                <ul>
-                    {% for link in nav_links %}
-                        {% if link.collapse %}
-                            <li>
-                                <a href="#{{ link.header }}"
-                                   data-collapse-target="{{ link.header }}"
-                                   class="cursor-pointer">
-                                    <span class="icon solid {{ link.icon }}">{{ link.header }}</span>
-                                </a>
-                            </li>
-                            <ul id="{{ link.header }}" class="hidden ml-4">
-                                {% for child_link in link.children %}
-                                    <li>
-                                        <a href="{{ child_link.url }}"
-                                           {% if child_link.url in request.path %}class="active"{% endif %}>
-                                            <span class="icon solid ms-3 {{ child_link.icon }}">{{ child_link.text }}</span>
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% else %}
-                            <li>
-                                <a href="{{ link.url }}"
-                                   {% if link.url in request.path %}class="active"{% endif %}>
-                                    <span class="icon solid {{ link.icon }}">{{ link.text }}</span>
-                                </a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
+        </div>
+        <!-- Nav -->
+        <nav id="nav" class="flex flex-col px-3 w-full">
+            {% for link in nav_links %}
+                {% if link.collapse %}
+                    <!-- <li class="p-2"> -->
+                    <!--     <a href="#{{ link.header }}" -->
+                    <!--        data-collapse-target="{{ link.header }}" -->
+                    <!--        class="cursor-pointer"> -->
+                    <!--         <span class="fa-solid {{ link.icon }}">{{ link.header }}</span> -->
+                    <!--     </a> -->
+                    <!-- </li> -->
+                    <!-- <ul id="{{ link.header }}" class="hidden ml-4"> -->
+                    <!--     {% for child_link in link.children %} -->
+                    <!--         <li> -->
+                    <!--             <a href="{{ child_link.url }}" -->
+                    <!--                {% if child_link.url in request.path %}class="active"{% endif %}> -->
+                    <!--                 <span class="">{{ child_link.text }}</span> -->
+                    <!--             </a> -->
+                    <!--         </li> -->
+                    <!--     {% endfor %} -->
+                    <!-- </ul> -->
+                {% else %}
+                    <div class="hover:bg-gray-700 rounded-lg p-2 mb-1">
+                        <a href="{{ link.url }}" class="flex flex-row">
+                            <div class="basis-1/4">
+                                <i class="fa-solid {{ link.icon }}"></i>
+                            </div>
+                            <div class="basis-3/4 text-end">
+                                <span class="text-end">{{ link.text }}</span>
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </nav>
+        <div id="bottom" class="fixed bottom-2">
+            <div class="flex text-white justify-center">
+                <a class="text-white cursor-pointer"
+                   id="filter-collapse"
+                   href="#filters">
+                    <i class="fa-solid fa-filter"></i> Filters</a>
+            </div>
+            <div id="filters" class="hidden p-2">
+                <div class="flex text-white p-1">
+                    <label for="class_select" class="me-2">
+                        <div class="border px-2 py-1 rounded">Class</div>
+                    </label>
+                    <select name="class_select" class="border p-1" id="class_select">
+                        <option value=""></option>
+                        <option value="Wa">Warrior</option>
+                        <option value="Ro">Rogue</option>
+                        <option value="Wi">Wizard</option>
+                        <option value="Pr">Priest</option>
+                        <option value="Mo">Monk</option>
+                    </select>
+                </div>
+                <div class="flex text-white p-1" id="level">
+                    <label for="level_select" class="me-2">
+                        <div class="border px-2 py-1 rounded">Level</div>
+                    </label>
+                    <input name="level_select"
+                           class="border p-1"
+                           id="level_select"
+                           type="number">
+                </div>
+                <div class="hidden text-white p-1" id="ability">
+                    <label for="ability_select" class="me-2">
+                        <a class="border px-2 py-1 rounded" href="#">Ability</a>
+                    </label>
+                    <input name="ability_select"
+                           class="border p-1"
+                           id="ability_select"
+                           type="number">
+                </div>
+            </div>
+            <div class="pt-1">
+                <div class="search text-white m-1">
+                    <label for="search" class="sr-only">Search Wiki:</label>
+                    <input id="search"
+                           class="border p-1 w-45 rounded"
+                           placeholder="Search..."
+                           autocomplete="off"
+                           type="text">
+                </div>
+                <!-- Social Icons -->
+                <ul class="icons flex flex-row text-center">
+                    <li class="basis-1/4">
+                        <a href="#"><i class="fa-brands fa-discord"></i></a>
+                    </li>
+                    <li class="basis-1/4">
+                        <a href="https://github.com/phever/darkagesWiki"><i class="fa-brands fa-github"></i></a>
+                    </li>
+                    <li class="basis-1/4">
+                        <a href="mailto:dawiki@phever.dev"><i class="fa-solid fa-envelope"></i></a>
+                    </li>
+                    <li class="basis-1/4">
+                        <a href="#" id="dark-mode-toggle"><i class="fa-solid fa-sun"></i></a>
+                    </li>
                 </ul>
-            </nav>
-        </div>
-        <div class="flex text-white justify-center">
-            <a class="text-white cursor-pointer"
-               id="filter-collapse"
-               href="#filters">
-                <i class="fa-solid fa-filter"></i> Filters</a>
-        </div>
-        <div id="filters" class="hidden p-2">
-            <div class="flex text-white p-1">
-                <label for="class_select" class="me-2">
-                    <a href="#" class="border px-2 py-1 rounded">Class</a>
-                </label>
-                <select name="class_select" class="border p-1" id="class_select">
-                    <option value=""></option>
-                    <option value="Wa">Warrior</option>
-                    <option value="Ro">Rogue</option>
-                    <option value="Wi">Wizard</option>
-                    <option value="Pr">Priest</option>
-                    <option value="Mo">Monk</option>
-                </select>
-            </div>
-            <div class="flex text-white p-1" id="level">
-                <label for="level_select" class="me-2">
-                    <a href="#" class="border px-2 py-1 rounded">Level</a>
-                </label>
-                <input name="level_select"
-                       class="border p-1"
-                       id="level_select"
-                       type="number">
-            </div>
-            <div class="hidden text-white p-1" id="ability">
-                <label for="ability_select" class="me-2">
-                    <a class="border px-2 py-1 rounded" href="#">Ability</a>
-                </label>
-                <input name="ability_select"
-                       class="border p-1"
-                       id="ability_select"
-                       type="number">
-            </div>
-        </div>
-        <div class="bottom pt-1">
-            <div class="search text-white m-1">
-                <label for="search" class="sr-only">Search Wiki:</label>
-                <input id="search"
-                       class="border p-1"
-                       placeholder="Search..."
-                       autocomplete="off"
-                       type="text">
-            </div>
-            <!-- Social Icons -->
-            <ul class="icons">
-                <li>
-                    <a href="#" class="icon brands fa-discord"><span class="label">Discord</span></a>
-                </li>
-                <li>
-                    <a href="https://github.com/phever/darkagesWiki"
-                       class="icon brands fa-github"><span class="label">Github</span></a>
-                </li>
-                <li>
-                    <a href="mailto:dawiki@phever.dev" class="icon solid fa-envelope"><span class="label">Email</span></a>
-                </li>
-                <li>
-                    <a href="#" id="dark-mode-toggle" class="icon solid fa-sun"><span class="label">Dark Mode</span></a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <!-- Modal -->
-    <div id="dark-modal"
-         class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
-        <div class="bg-white rounded shadow p-4 max-w-md w-full">
-            <div class="flex justify-between items-center border-b pb-2 mb-2">
-                <h1 class="text-lg font-bold">Dark Mode</h1>
-                <button class="dark-modal-close text-xl">&times;</button>
-            </div>
-            <div class="mb-4">
-                I ain't done dark mode yet, so hold on a second Aisling! It'll come when I have time/when
-                the core of the site is finished. Or you could e-mail me and we could yell at each other.
-            </div>
-            <div class="text-right">
-                <button class="dark-modal-close px-4 py-2 border rounded">Close</button>
             </div>
         </div>
     </div>
