@@ -2,7 +2,7 @@
 
 {% block header %}
 	<!-- Header -->
-	<div id="header" class="bg-dark">
+        <div id="header" class="bg-gray-800 text-white">
 		<div class="top">
 			<!-- Logo -->
 			<div id="logo">
@@ -48,14 +48,14 @@
 				</ul>
 			</nav>
 		</div>
-		<div class="d-flex text-light justify-content-center">
-			<a class="link-light" id="filter-collapse" data-bs-toggle="collapse" href="#filters" role="button">
+                <div class="flex text-white justify-center">
+                        <a class="text-white" id="filter-collapse" href="#filters">
 				<i class="fa-solid fa-filter"></i> Filters</a>
 		</div>
-		<div class="collapse" id="filters">
-			<div class="d-flex text-light p-1">
-				<label for="class_select" class="me-2"><a href="#" class="btn btn-outline-light">Class</a></label>
-				<select name="class_select" class="form-control" id="class_select">
+                <div id="filters" class="hidden">
+                        <div class="flex text-white p-1">
+                                <label for="class_select" class="me-2"><a href="#" class="border px-2 py-1 rounded">Class</a></label>
+                                <select name="class_select" class="border p-1" id="class_select">
 					<option value=""></option>
 					<option value="Wa">Warrior</option>
 					<option value="Ro">Rogue</option>
@@ -64,19 +64,19 @@
 					<option value="Mo">Monk</option>
 				</select>
 			</div>
-			<div class="d-flex text-light p-1" id="level">
-				<label for="level_select" class="me-2"><a href="#" class="btn btn-outline-light">Level</a></label>
-				<input name="level_select" class="form-control" id="level_select" type="number">
+                        <div class="flex text-white p-1" id="level">
+                                <label for="level_select" class="me-2"><a href="#" class="border px-2 py-1 rounded">Level</a></label>
+                                <input name="level_select" class="border p-1" id="level_select" type="number">
 			</div>
-			<div class="d-none text-light p-1" id="ability">
-				<label for="ability_select" class="me-2"><a class="btn btn-outline-light" href="#">Ability</a></label>
-				<input name="ability_select" class="form-control" id="ability_select" type="number">
+                        <div class="hidden text-white p-1" id="ability">
+                                <label for="ability_select" class="me-2"><a class="border px-2 py-1 rounded" href="#">Ability</a></label>
+                                <input name="ability_select" class="border p-1" id="ability_select" type="number">
 			</div>
 		</div>
 		<div class="bottom pt-1">
-			<div class="search text-light m-1">
-				<label for="search" class="form-label visually-hidden">Search Wiki:</label>
-				<input id="search" class="form-control" placeholder="Search..." autocomplete="off" type="text">
+                        <div class="search text-white m-1">
+                                <label for="search" class="sr-only">Search Wiki:</label>
+                                <input id="search" class="border p-1" placeholder="Search..." autocomplete="off" type="text">
 			</div>
 			<!-- Social Icons -->
 			<ul class="icons">

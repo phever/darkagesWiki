@@ -92,38 +92,49 @@ def items(request):
 
 def new_weapon(request):
     context = {
-        'title': 'Add a new Weapon',
-        'form': forms.NewWeaponForm
+        "title": "Add a new Weapon",
+        "form": forms.WeaponForm(),
     }
-    return render(request, 'editors/new_article.html', base_context(context))
+    return render(request, "editors/new_article.html", base_context(context))
 
 
-def new_armor(request):
-    return None
+@login_required
+def new_article(request):
+    form_classes = {
+        "weapon": forms.WeaponForm,
+        "armor": forms.ArmorForm,
+        "equipment": forms.EquipmentForm,
+        "item": forms.ItemForm,
+        "skillspell": forms.SkillSpellForm,
+        "location": forms.LocationForm,
+        "map": forms.MapForm,
+        "quest": forms.QuestForm,
+        "queststep": forms.QuestStepForm,
+    }
 
+    if request.method == "POST":
+        article_type = request.POST.get("article_type")
+        form_class = form_classes.get(article_type, forms.ArticleForm)
+        form = form_class(request.POST, request.FILES)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            if isinstance(instance, Article):
+                instance.author = request.user
+                instance.approved_by = request.user
+            instance.save()
+            form.save_m2m()
+            return redirect("index")
+    else:
+        article_type = request.GET.get("article_type", "weapon")
 
-def new_equipment(request):
-    return None
+    forms_dict = {key: cls() for key, cls in form_classes.items()}
 
-
-def new_knowledge(request):
-    return None
-
-
-def new_spell(request):
-    return None
-
-
-def new_skill(request):
-    return None
-
-
-def new_item(request):
-    return None
-
-
-def new_quest(request):
-    return None
+    context = {
+        "title": "New Article",
+        "forms": forms_dict,
+        "article_type": article_type,
+    }
+    return render(request, "editors/new_article.html", base_context(context))
 
 
 @login_required

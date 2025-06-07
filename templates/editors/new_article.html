@@ -1,8 +1,25 @@
 {% extends 'base/base.html' %}
 {% load crispy_forms_tags %}
+{% block additional_javascript %}
+    <script src="{% static 'js/article_forms.js' %}"></script>
+{% endblock %}
 {% block content %}
-    <!-- Main -->
-    <div id="main">
-        <div class="container">{% crispy form %}</div>
+    <div id="main" class="p-4">
+        <label for="article-type" class="block mb-2 font-bold">Select article type:</label>
+        <select id="article-type" class="mb-4 border rounded p-2">
+            {% for key in forms.keys %}
+                <option value="{{ key }}" {% if key == article_type %}selected{% endif %}>{{ key|capfirst }}</option>
+            {% endfor %}
+        </select>
+        {% for key, form in forms.items %}
+            <div id="form-{{ key }}" class="article-form {% if key != article_type %}hidden{% endif %}">
+                <form method="post" enctype="multipart/form-data" class="space-y-4">
+                    {% csrf_token %}
+                    <input type="hidden" name="article_type" value="{{ key }}" />
+                    {% crispy form %}
+                    <button type="submit" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded">Save</button>
+                </form>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
