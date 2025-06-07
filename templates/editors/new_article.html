@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block additional_javascript %}
     <script src="{% static 'js/article_forms.js' %}"></script>
@@ -12,7 +13,8 @@
             {% endfor %}
         </select>
         {% for key, form in forms.items %}
-            <div id="form-{{ key }}" class="article-form {% if key != article_type %}hidden{% endif %}">
+            <div id="form-{{ key }}"
+                 class="article-form {% if key != article_type %}hidden{% endif %}">
                 <form method="post" enctype="multipart/form-data" class="space-y-4">
                     {% csrf_token %}
                     <input type="hidden" name="article_type" value="{{ key }}" />
