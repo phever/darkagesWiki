@@ -1,7 +1,8 @@
 {% load static %}
 {% block header %}
     <!-- Header -->
-    <div id="header" class="bg-gray-800 text-white">
+    <div id="header"
+         class="fixed left-0 top-0 z-10 h-screen w-64 md:w-40 sm:hidden bg-gray-800 text-white flex flex-col justify-between shadow-inner overflow-y-auto">
         <div class="top">
             <!-- Logo -->
             <div id="logo">
@@ -20,14 +21,12 @@
                         {% if link.collapse %}
                             <li>
                                 <a href="#{{ link.header }}"
-                                   data-bs-toggle="collapse"
-                                   role="button"
-                                   aria-expanded="false"
-                                   aria-controls="{{ link.header }}">
+                                   data-collapse-target="{{ link.header }}"
+                                   class="cursor-pointer">
                                     <span class="icon solid {{ link.icon }}">{{ link.header }}</span>
                                 </a>
                             </li>
-                            <div class="collapse" id="{{ link.header }}">
+                            <ul id="{{ link.header }}" class="hidden ml-4">
                                 {% for child_link in link.children %}
                                     <li>
                                         <a href="{{ child_link.url }}"
@@ -36,7 +35,7 @@
                                         </a>
                                     </li>
                                 {% endfor %}
-                            </div>
+                            </ul>
                         {% else %}
                             <li>
                                 <a href="{{ link.url }}"
@@ -50,10 +49,10 @@
             </nav>
         </div>
         <div class="flex text-white justify-center">
-            <a class="text-white" id="filter-collapse" href="#filters">
+            <a class="text-white cursor-pointer" id="filter-collapse" href="#filters">
                 <i class="fa-solid fa-filter"></i> Filters</a>
         </div>
-        <div id="filters" class="hidden">
+        <div id="filters" class="hidden p-2">
             <div class="flex text-white p-1">
                 <label for="class_select" class="me-2">
                     <a href="#" class="border px-2 py-1 rounded">Class</a>
@@ -108,40 +107,24 @@
                     <a href="mailto:dawiki@phever.dev" class="icon solid fa-envelope"><span class="label">Email</span></a>
                 </li>
                 <li>
-                    <a href="#"
-                       class="icon solid fa-sun"
-                       role="button"
-                       data-bs-toggle="modal"
-                       data-bs-target="#staticBackdrop"><span class="label">Dark Mode</span></a>
+                    <a href="#" id="dark-mode-toggle" class="icon solid fa-sun"><span class="label">Dark Mode</span></a>
                 </li>
             </ul>
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade"
-         id="staticBackdrop"
-         data-bs-backdrop="static"
-         data-bs-keyboard="false"
-         tabindex="-1"
-         aria-labelledby="staticBackdropLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Dark Mode</h1>
-                    <button type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    I ain't done dark mode yet, so hold on a second Aisling! It'll come when I have time/when
-                    the core of the site is finished. Or you could e-mail me and we could yell at each other.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Thanks Phever!</button>
-                </div>
+    <div id="dark-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+        <div class="bg-white rounded shadow p-4 max-w-md w-full">
+            <div class="flex justify-between items-center border-b pb-2 mb-2">
+                <h1 class="text-lg font-bold">Dark Mode</h1>
+                <button class="dark-modal-close text-xl">&times;</button>
+            </div>
+            <div class="mb-4">
+                I ain't done dark mode yet, so hold on a second Aisling! It'll come when I have time/when
+                the core of the site is finished. Or you could e-mail me and we could yell at each other.
+            </div>
+            <div class="text-right">
+                <button class="dark-modal-close px-4 py-2 border rounded">Close</button>
             </div>
         </div>
     </div>

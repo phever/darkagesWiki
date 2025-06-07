@@ -5,7 +5,7 @@
     <script src="{% static 'js/article_forms.js' %}"></script>
 {% endblock %}
 {% block content %}
-    <div id="main" class="p-4">
+    <div id="main" class="ml-64 md:ml-40 sm:ml-0 p-4">
         <label for="article-type" class="block mb-2 font-bold">Select article type:</label>
         <select id="article-type" class="mb-4 border rounded p-2">
             {% for key in forms.keys %}
