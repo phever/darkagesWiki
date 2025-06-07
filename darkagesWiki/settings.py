@@ -130,3 +130,6 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SITE_NAME = 'Dark Ages Wiki'
+
+# Custom user model
+AUTH_USER_MODEL = 'wiki.CustomUser'
