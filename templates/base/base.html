@@ -7,10 +7,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="{% static 'favicon.ico' %}" />
         <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet">
         {% block additional_stylesheets %}{% endblock %}
         {% block additional_head %}{% endblock %}
     </head>
-    <body class="is-preload">
+    <body class="is-preload font-sans">
         <div id="content-main">
             {% block header %}
                 {% include 'base/header.html' %}
@@ -20,7 +21,9 @@
                 {% include 'base/footer.html' %}
             {% endblock %}
         </div>
-        {% block javascript %}{% endblock %}
+        {% block javascript %}
+            <script src="{% static 'js/layout.js' %}"></script>
+        {% endblock %}
         {% block additional_javascript %}{% endblock %}
     </body>
 </html>
