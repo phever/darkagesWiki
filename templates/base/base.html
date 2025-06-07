@@ -7,19 +7,17 @@
 	<title>{{ title }}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="{% static 'favicon.ico' %}"/>
-	<link rel="stylesheet" href="{% static 'css/default.css' %}" crossorigin="use-credentials"/>
-	{% block additional_stylesheets %}{% endblock %}
+        <script src="https://cdn.tailwindcss.com"></script>
+        {% block additional_stylesheets %}{% endblock %}
 	{% block additional_head %}{% endblock %}
 </head>
-<body class="is-preload" data-bs-theme="light">
+<body class="is-preload">
 <div id="content-main">
 	{% block header %}{% include 'base/header.html' %}{% endblock %}
 	{% block content %}{% endblock %}
 	{% block footer %}{% include 'base/footer.html' %}{% endblock %}
 </div>
-{% block javascript %}
-	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-{% endblock %}
+{% block javascript %}{% endblock %}
 {% block additional_javascript %}{% endblock %}
 </body>
 </html>
