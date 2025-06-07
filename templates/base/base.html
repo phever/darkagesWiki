@@ -7,12 +7,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="{% static 'favicon.ico' %}" />
         <script src="https://cdn.tailwindcss.com"></script>
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600"
+              rel="stylesheet">
         {% block additional_stylesheets %}{% endblock %}
         {% block additional_head %}{% endblock %}
     </head>
-    <body class="is-preload font-sans">
-        <div id="content-main">
+    <body class="is-preload font-sans h-full">
+        <div id="content-main h-full">
             {% block header %}
                 {% include 'base/header.html' %}
             {% endblock %}
