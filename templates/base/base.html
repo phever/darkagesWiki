@@ -12,15 +12,19 @@
         {% block additional_stylesheets %}{% endblock %}
         {% block additional_head %}{% endblock %}
     </head>
-    <body class="is-preload font-sans h-full">
-        <div id="content-main h-full">
+    <body class="is-preload font-sans min-h-screen">
+        <div class="flex min-h-screen" id="content-main">
             {% block header %}
-                {% include 'base/header.html' %}
+                <aside class="hidden sm:block" id="sidebar">
+                    {% include 'base/header.html' %}
+                </aside>
             {% endblock %}
-            {% block content %}{% endblock %}
-            {% block footer %}
-                {% include 'base/footer.html' %}
-            {% endblock %}
+            <div class="flex-1">
+                {% block content %}{% endblock %}
+                {% block footer %}
+                    {% include 'base/footer.html' %}
+                {% endblock %}
+            </div>
         </div>
         {% block javascript %}
             <script src="{% static 'js/layout.js' %}"></script>
