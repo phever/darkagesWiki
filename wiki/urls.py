@@ -25,4 +25,6 @@ urlpatterns = [
     path('new/quest/', views.new_quest, name='new-quest'),
     path('new/knowledge/', views.new_knowledge, name='new-knowledge'),
     path('new/item/', views.new_item, name='new-item'),
+    path('article/new/', views.article_form, name='article-new'),
+    path('article/edit/<int:pk>/', views.article_form, name='article-edit'),
 ]

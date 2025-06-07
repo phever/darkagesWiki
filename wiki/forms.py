@@ -1,6 +1,6 @@
 import django.forms
 from django.forms import ModelForm
-from wiki.models import Weapon, Item
+from wiki.models import Article, Weapon, Item
 
 
 class NewWeaponForm(ModelForm):
@@ -15,3 +15,10 @@ class NewItemForm(ModelForm):
         fields = django.forms.ALL_FIELDS
 
 
+class ArticleForm(ModelForm):
+    """Create or edit an ``Article`` instance."""
+
+    class Meta(object):
+        model = Article
+        # only expose editable fields
+        fields = ["name", "published"]

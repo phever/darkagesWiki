@@ -1,9 +1,10 @@
 from django.conf import settings
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
 
 from . import forms
 from .functions import base_context
-from .models import Weapon, Armor, Equipment
+from .models import Article, Weapon, Armor, Equipment
 
 
 def index(request):
@@ -123,3 +124,24 @@ def new_item(request):
 
 def new_quest(request):
     return None
+
+
+@login_required
+def article_form(request, pk=None):
+    article = get_object_or_404(Article, pk=pk) if pk else None
+    if request.method == "POST":
+        form = forms.ArticleForm(request.POST, instance=article)
+        if form.is_valid():
+            article = form.save(commit=False)
+            if not article.pk:
+                article.author = request.user
+            article.save()
+            return redirect("index")
+    else:
+        form = forms.ArticleForm(instance=article)
+
+    context = {
+        "title": "Edit Article" if pk else "New Article",
+        "form": form,
+    }
+    return render(request, "editors/new_article.html", base_context(context))
